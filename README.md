@@ -2,4 +2,4 @@
 
 An RPC-like middleware for [Express](https://expressjs.com), currently in active development 🛠️
 
-Documentation to come soon...
+Documentation to come soon.
