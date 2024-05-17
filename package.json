@@ -1,0 +1,34 @@
+{
+  "name": "alya-connect",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/alya-connect.umd.cjs",
+  "module": "./dist/alya-connect.js",
+  "exports": {
+    ".": {
+      "import": "./dist/alya-connect.js",
+      "require": "./dist/alya-connect.umd.cjs"
+    },
+    "./mutators/*": "./src/mutators/*.js"
+  },
+  "imports": {
+    "#*": "./src/*"
+  },
+  "scripts": {
+    "build": "npx vite build"
+  },
+  "author": "Carlos Eduardo Barbosa de Almeida",
+  "license": "",
+  "dependencies": {
+    "nanoid": "^3.3.4"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11"
+  }
+}
