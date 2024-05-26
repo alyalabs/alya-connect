@@ -4,4 +4,4 @@ An RPC-like library for [Express](https://expressjs.com), [Koa](https://koajs.co
 
 Currently in active development 🛠️
 
-Documentation to come soon...
+Documentation to come soon.
