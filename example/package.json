@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "./built/main.js",
   "imports": {
     "#*": "./src/*"
   },
   "scripts": {
     "build": "tsc",
-    "start": "node ./built/main.js"
+    "start": "node --loader=ts-node/esm src/main.ts"
   },
   "author": "Carlos Eduardo Barbosa de Almeida",
   "license": "",
