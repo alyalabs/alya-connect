@@ -19,7 +19,8 @@
     "#*": "./src/*"
   },
   "scripts": {
-    "build": "npx vite build"
+    "build": "npx vite build",
+    "build-ts": "tsc"
   },
   "author": "Carlos Eduardo Barbosa de Almeida",
   "license": "",
@@ -27,6 +28,8 @@
     "nanoid": "^3.3.4"
   },
   "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.12.12",
     "gulp": "^4.0.2",
     "typescript": "^5.4.5",
     "vite": "^5.2.11"

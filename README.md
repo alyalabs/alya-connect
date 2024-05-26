@@ -1,5 +1,7 @@
 # Alya Connect
 
-An RPC-like middleware for [Express](https://expressjs.com), currently in active development 🛠️
+An RPC-like library for [Express](https://expressjs.com), [Koa](https://koajs.com) and [Fastify](https://fastify.dev).
+
+Currently in active development 🛠️
 
 Documentation to come soon...
