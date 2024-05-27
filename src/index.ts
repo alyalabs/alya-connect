@@ -33,6 +33,13 @@ let cache: [string, any][] = []
 
 let response: Record<string, any> = []
 
+const STATUS = {
+  SUCCESS: 'success',
+  ERROR: 'error'
+} as const
+
+type Status = typeof STATUS[keyof typeof STATUS]  
+
 function log(...args: any[]) {
   if (DEV_MODE) console.log('alya-connect >', ...args)
 }
@@ -91,7 +98,7 @@ async function callMethod(payload: Payload, data: Record<string, any>) {
   
         addToResponse({
           [payload.id!]: {
-            status: 'success',
+            status: STATUS.SUCCESS,
             result: result
           }
         })
@@ -99,7 +106,7 @@ async function callMethod(payload: Payload, data: Record<string, any>) {
     } catch (err: any) {
       addToResponse({
         [payload.id!]: {
-          status: 'error',
+          status: STATUS.ERROR,
           error: {
             name: err.name,
             message: err.message,
@@ -156,6 +163,8 @@ function registerService(serviceName: string, service: Service) {
   log('registerService called!')
   log('registerService > serviceName:', serviceName)
 
+  console.log(Object.keys(service))
+
   services = { ...services, [serviceName]: service }
 }
 
@@ -178,7 +187,8 @@ async function handler(req: { body?: Payload | Payload[] }, res: { send: (body: 
     try {
       for (let payload of payloads) {
         log('handler > payload:', payload)
-        log('handler > payload dependsOn:', payload.id, payload.dependsOn)
+        log('handler > payload id:', payload.id)
+        log('handler > payload dependsOn:', payload.dependsOn)
   
         if (!payload.dependsOn) {
           await handlePayload(payload)
@@ -186,7 +196,7 @@ async function handler(req: { body?: Payload | Payload[] }, res: { send: (body: 
       }
   
       for (let payload of payloads) {
-        if (payload.status !== 'success') {
+        if (payload.status !== STATUS.SUCCESS) {
           if (payload.dependsOn) {
             await handlePayload(payload, true)
           }
@@ -214,7 +224,8 @@ async function handle(payloads = [] as Payload[]) {
 
   for (let payload of payloads) {
     log('handler > payload:', payload)
-    log('handler > payload dependsOn:', payload.id, payload.dependsOn)
+    log('handler > payload id:', payload.id)
+    log('handler > payload dependsOn:', payload.dependsOn)
 
     if (!payload.dependsOn) {
       await handlePayload(payload)
@@ -222,7 +233,7 @@ async function handle(payloads = [] as Payload[]) {
   }
 
   for (let payload of payloads) {
-    if (payload.status !== 'success') {
+    if (payload.status !== STATUS.SUCCESS) {
       if (payload.dependsOn) {
         await handlePayload(payload, true)
       }
@@ -235,5 +246,5 @@ async function handle(payloads = [] as Payload[]) {
 export default {
   registerService,
   addMutator,
-  handler
+  handle
 }

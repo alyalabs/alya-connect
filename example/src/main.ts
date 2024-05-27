@@ -50,11 +50,24 @@ async function main() {
   }
 
   try {
-    await AlyaConnect.handle([carlosPayload, carlosUniversityPayload])
-    
-    const store = getStore()
+    let firstCallResponse = await AlyaConnect.handle([carlosPayload, carlosUniversityPayload])
 
-    console.log(store)
+    if (firstCallResponse) {
+      console.log(firstCallResponse)
+
+      const store = getStore()
+      console.log(store)
+    }
+
+    let secondCallResponse = await AlyaConnect.handle([carlosPayload, carlosUniversityPayload])
+
+    if (secondCallResponse) {
+      console.log(secondCallResponse)
+
+      const store = getStore()
+      console.log(store)
+    }
+    
   } catch (err) {
     console.error(err)
   }

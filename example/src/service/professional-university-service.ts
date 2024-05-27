@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises'
+
 import { Service } from '../../../dist/index.js'
 
 import { ProfessionalUniversityDTO } from '#dto/professional-university-dto.ts'
@@ -18,6 +20,8 @@ const ProfessionalUniversityService: Service = {
       }
 
       store.professionalUniversities.push(professionalUniversity)
+
+      await readFile('./test.txt', 'utf-8')
 
       return professionalUniversity
     }
