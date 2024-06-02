@@ -1,6 +1,6 @@
-import { University } from '#model/university.ts'
-import { Professional } from '#model/professional.ts'
-import { ProfessionalUniversity } from '#model/professional-university.ts'
+import { University } from '#model/university.js'
+import { Professional } from '#model/professional.js'
+import { ProfessionalUniversity } from '#model/professional-university.js'
 
 type Store = {
   universities: University[],

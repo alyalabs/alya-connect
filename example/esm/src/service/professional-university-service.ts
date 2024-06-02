@@ -1,13 +1,13 @@
 import { readFile } from 'node:fs/promises'
 
-import { Service } from '../../../dist/index.js'
+import { Service } from '../../../../dist/esm/index.js'
 
-import { ProfessionalUniversityDTO } from '#dto/professional-university-dto.ts'
-import { ProfessionalUniversity } from '#model/professional-university.ts'
+import { ProfessionalUniversityDTO } from '#dto/professional-university-dto.js'
+import { ProfessionalUniversity } from '#model/professional-university.js'
 
-import { getStore } from '#store.ts'
+import { getStore } from '#store.js'
 
-import { getRandomId } from '#util.ts'
+import { getRandomId } from '#util.js'
 
 const store = getStore()
 

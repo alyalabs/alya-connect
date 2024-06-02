@@ -1,26 +1,24 @@
-import AlyaConnect, {
-  Payload
-} from '../../dist/index.js'
+const { AlyaConnect } = require('../../../dist/cjs/index.js')
 
-import ProfessionalService from '#service/professional-service.ts'
-import ProfessionalUniversityService from '#service/professional-university-service.ts'
+const ProfessionalService = require('#service/professional-service.js')
+const ProfessionalUniversityService = require('#service/professional-university-service.js')
 
-import { ProfessionalDTO } from '#dto/professional-dto.ts'
-import { ProfessionalUniversityDTO } from '#dto/professional-university-dto.ts'
+const { getStore } = require('#store.js')
 
-import { getStore } from '#store.ts'
-
-import { getRandomId } from '#util.ts'
+const { getRandomId } = require('#util.js')
 
 async function main() {
+  
+  console.log(AlyaConnect)
+
   AlyaConnect.registerService('ProfessionalService', ProfessionalService)
   AlyaConnect.registerService('ProfessionalUniversityService', ProfessionalUniversityService)
 
-  const carlos: ProfessionalDTO = {
+  const carlos = {
     name: 'Carlos Eduardo',
   }
 
-  const carlosUniversity: ProfessionalUniversityDTO = {
+  const carlosUniversity = {
     universityId: 1,
     startYear: 2010,
     endYear: 2020
@@ -28,14 +26,14 @@ async function main() {
 
   const carlosPayloadId = getRandomId().toString()
 
-  const carlosPayload: Payload = {
+  const carlosPayload = {
     id: carlosPayloadId,
     service: 'ProfessionalService',
     method: 'create',
     data: carlos
   }
 
-  const carlosUniversityPayload: Payload = {
+  const carlosUniversityPayload = {
     id: getRandomId().toString(),
     service: 'ProfessionalUniversityService',
     method: 'create',
@@ -63,6 +61,15 @@ async function main() {
 
     if (secondCallResponse) {
       console.log(secondCallResponse)
+
+      const store = getStore()
+      console.log(store)
+    }
+
+    let thirdCallResponse = await AlyaConnect.handle([carlosPayload])
+
+    if (thirdCallResponse) {
+      console.log(thirdCallResponse[0])
 
       const store = getStore()
       console.log(store)

@@ -1,26 +1,37 @@
 {
   "name": "alya-connect",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "",
-  "type": "module",
+  "keywords": ["nodejs" ,"middleware", "rpc", "expressjs", "fastify", "koa"],
   "files": [
     "dist"
   ],
-  "main": "dist/alya-connect.umd.cjs",
-  "module": "./dist/alya-connect.js",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
   "exports": {
     ".": {
-      "import": "./dist/alya-connect.js",
-      "require": "./dist/alya-connect.umd.cjs"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
     },
     "./mutators/*": "./src/mutators/*.js"
   },
-  "imports": {
-    "#*": "./src/*"
-  },
   "scripts": {
-    "build": "npx vite build",
-    "build-ts": "tsc"
+    "clear": "rimraf ./dist/*",
+
+    "prebuild": "rimraf ./dist/*",
+    "build": "tsc -p ./tsconfig.esm.json && tsc -p ./tsconfig.cjs.json",
+    "postbuild": "echo '{ \"type\": \"commonjs\" }' > ./dist/cjs/package.json && echo '{ \"type\": \"module\" }' > ./dist/esm/package.json",
+
+    "prebuild-esm": "rimraf ./dist/esm/*",
+    "build-esm": "tsc -p ./tsconfig.esm.json",
+    "postbuild-esm": "echo '{ \"type\": \"module\" }' > ./dist/esm/package.json",
+
+    "prebuild-cjs": "rimraf ./dist/cjs/*",
+    "build-cjs": "tsc -p ./tsconfig.cjs.json",
+    "postbuild-cjs": "echo '{ \"type\": \"commonjs\" }' > ./dist/cjs/package.json",
+    
+    "build-dts": "tsc --declaration --emitDeclarationOnly"
   },
   "author": "Carlos Eduardo Barbosa de Almeida",
   "license": "",
@@ -31,7 +42,7 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.12.12",
     "gulp": "^4.0.2",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.11"
+    "rimraf": "^5.0.7",
+    "typescript": "^5.4.5"
   }
 }

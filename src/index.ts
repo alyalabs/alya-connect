@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import {
   DEV_MODE,
   GENERATE_IDS
-} from '#flags.ts'
+} from './flags.js'
 
 export type Payload = {
   id?: string;
@@ -243,7 +243,7 @@ async function handle(payloads = [] as Payload[]) {
   return response
 }
 
-export default {
+export const AlyaConnect = {
   registerService,
   addMutator,
   handle

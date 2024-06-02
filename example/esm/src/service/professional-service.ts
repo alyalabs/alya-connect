@@ -1,11 +1,11 @@
-import { Service } from '../../../dist/index.js'
+import { Service } from '../../../../dist/esm/index.js'
 
-import { ProfessionalDTO } from '#dto/professional-dto.ts'
-import { Professional } from '#model/professional.ts'
+import { ProfessionalDTO } from '#dto/professional-dto.js'
+import { Professional } from '#model/professional.js'
 
-import { getStore } from '#store.ts'
+import { getStore } from '#store.js'
 
-import { getRandomId } from '#util.ts'
+import { getRandomId } from '#util.js'
 
 const store = getStore()
 
