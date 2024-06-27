@@ -13,7 +13,7 @@ let services: AlyaConnect.Services = {}
 
 let mutators: AlyaConnect.Mutator[] = []
 
-let cache: [string, any][] = []
+const cache = new Map<string, any>()
 
 let response: Record<string, any> = []
 
@@ -21,12 +21,12 @@ function log(...args: any[]) {
   if (DEV_MODE) console.log('alya-connect >', ...args)
 }
 
-function addToCache(value: [string, any]) {
-  cache.push(value)
+function addToCache(key: string, value: any) {
+  cache.set(key, value)
 }
 
 function clearCache() {
-  cache = []
+  cache.clear()
 }
 
 function addToResponse(obj: Record<string, any>) {
@@ -35,24 +35,6 @@ function addToResponse(obj: Record<string, any>) {
 
 function clearResponse() {
   response = {}
-}
-
-function wasProcessedSuccessfully(payloadId: string): number | false {
-  for (let i = 0; i < cache.length; i++) {
-    const entry = cache[i]
-    const id = entry[0]
-
-    if (payloadId === id) return i
-  }
-
-  return false
-}
-
-function getKeyFromPayload(index: number, key: string) {
-  log('getKeyFromPayload called!')
-  log('getKeyFromPayload > result:', cache[index][1])
-
-  return cache[index][1][key]
 }
 
 async function callMethod(payload: AlyaConnect.Payload, data: Record<string, any>) {
@@ -73,7 +55,7 @@ async function callMethod(payload: AlyaConnect.Payload, data: Record<string, any
       const result = await serviceMethod({ params, data })
 
       if (result) {
-        addToCache([payload.id!, result])
+        addToCache(payload.id!, result)
   
         addToResponse({
           [payload.id!]: {
@@ -96,6 +78,18 @@ async function callMethod(payload: AlyaConnect.Payload, data: Record<string, any
   } 
 }
 
+function hasValidCacheEntryValue(payloadId: string) {
+  if (cache.has(payloadId)) {
+    const entryValue = cache.get(payloadId)
+
+    if (entryValue && typeof entryValue === 'object') {
+      return entryValue
+    }
+  }
+
+  return null
+}
+
 function associate(payload: AlyaConnect.Payload, data: Record<string, any>) {
   log('associate called!')
 
@@ -105,10 +99,10 @@ function associate(payload: AlyaConnect.Payload, data: Record<string, any>) {
     }
 
     for (let relationship of payload.dependsOn) {
-      const cacheEntryIndex = wasProcessedSuccessfully(relationship.id)
+      const cacheEntryValue = hasValidCacheEntryValue(relationship.id)
 
-      if (cacheEntryIndex !== false) {
-        data[relationship.foreignKey] = getKeyFromPayload(cacheEntryIndex, relationship.primaryKey)
+      if (cacheEntryValue) {
+        data[relationship.foreignKey] = cacheEntryValue[relationship.references]
       }
     }
   }

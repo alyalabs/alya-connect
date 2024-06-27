@@ -7,10 +7,10 @@ export type Payload = {
   status?: string
   params?: Record<string, any>
   data?: Record<string, any>
-  dependsOn?: { id: string; foreignKey: string; primaryKey: string }[]
+  dependsOn?: { id: string; foreignKey: string; references: string }[]
 }
 
-export type ServiceMethod = (args: { params?: any; data?: any }) => Promise<any>
+export type ServiceMethod = (args: { params: any; data: any }) => Promise<any>
 
 export type Service = {
   name: string

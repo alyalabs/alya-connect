@@ -46,8 +46,8 @@ async function main() {
     dependsOn: [
       {
         id: carlosPayloadId,
-        primaryKey: 'id',
-        foreignKey: 'professionalId'
+        foreignKey: 'professionalId',
+        references: 'id',
       }
     ]
   }
