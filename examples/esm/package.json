@@ -17,5 +17,8 @@
     "@types/node": "^20.12.12",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "alya-connect": "file:../.."
   }
 }

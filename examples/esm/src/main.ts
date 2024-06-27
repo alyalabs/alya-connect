@@ -1,7 +1,5 @@
-import {
-  AlyaConnect,
-  Payload
-} from '../../../dist/esm/index.js'
+import * as alyaConnect from 'alya-connect'
+import type { AlyaConnect } from 'alya-connect'
 
 import ProfessionalService from '#service/professional-service.js'
 import ProfessionalUniversityService from '#service/professional-university-service.js'
@@ -14,8 +12,12 @@ import { getStore } from '#store.js'
 import { getRandomId } from '#util.js'
 
 async function main() {
-  AlyaConnect.registerService('ProfessionalService', ProfessionalService)
-  AlyaConnect.registerService('ProfessionalUniversityService', ProfessionalUniversityService)
+  alyaConnect.setup({
+    services: [
+      ProfessionalService,
+      ProfessionalUniversityService
+    ]
+  })
 
   const carlos: ProfessionalDTO = {
     name: 'Carlos Eduardo',
@@ -29,14 +31,14 @@ async function main() {
 
   const carlosPayloadId = getRandomId().toString()
 
-  const carlosPayload: Payload = {
+  const carlosPayload: AlyaConnect.Payload = {
     id: carlosPayloadId,
     service: 'ProfessionalService',
     method: 'create',
     data: carlos
   }
 
-  const carlosUniversityPayload: Payload = {
+  const carlosUniversityPayload: AlyaConnect.Payload = {
     id: getRandomId().toString(),
     service: 'ProfessionalUniversityService',
     method: 'create',
@@ -51,28 +53,28 @@ async function main() {
   }
 
   try {
-    let firstCallResponse = await AlyaConnect.handle([carlosPayload, carlosUniversityPayload])
+    let firstCallResponse = await alyaConnect.handlePayloads([carlosPayload, carlosUniversityPayload])
 
     if (firstCallResponse) {
-      console.log(firstCallResponse)
+      console.log('firstCallResponse', firstCallResponse)
 
       const store = getStore()
       console.log(store)
     }
 
-    let secondCallResponse = await AlyaConnect.handle([carlosPayload, carlosUniversityPayload])
+    let secondCallResponse = await alyaConnect.handlePayloads([carlosPayload, carlosUniversityPayload])
 
     if (secondCallResponse) {
-      console.log(secondCallResponse)
+      console.log('secondCallResponse', secondCallResponse)
 
       const store = getStore()
       console.log(store)
     }
 
-    let thirdCallResponse = await AlyaConnect.handle([carlosPayload])
+    let thirdCallResponse = await alyaConnect.handlePayloads([carlosPayload])
 
     if (thirdCallResponse) {
-      console.log(thirdCallResponse[0])
+      console.log('thirdCallResponse', thirdCallResponse)
 
       const store = getStore()
       console.log(store)

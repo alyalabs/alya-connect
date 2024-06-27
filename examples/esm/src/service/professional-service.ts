@@ -1,4 +1,4 @@
-import { Service } from '../../../../dist/esm/index.js'
+import { AlyaConnect } from 'alya-connect'
 
 import { ProfessionalDTO } from '#dto/professional-dto.js'
 import { Professional } from '#model/professional.js'
@@ -9,7 +9,9 @@ import { getRandomId } from '#util.js'
 
 const store = getStore()
 
-const ProfessionalService: Service = {
+const ProfessionalService: AlyaConnect.Service = {
+  name: 'ProfessionalService',
+  
   async create({ data }: { data: Omit<Professional, 'id'> }): Promise<Professional | null> {
     if (data) {
       const professional: Professional = {
