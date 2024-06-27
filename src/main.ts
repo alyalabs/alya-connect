@@ -9,7 +9,7 @@ import {
 
 import type { AlyaConnect } from './index.js'
 
-let services: AlyaConnect.Services = {}
+const services = new Map<string, AlyaConnect.Service>()
 
 let mutators: AlyaConnect.Mutator[] = []
 
@@ -46,36 +46,38 @@ async function callMethod(payload: AlyaConnect.Payload, data: Record<string, any
   const methodName = payload.method
   const params = payload.params || {}
 
-  const service = services[serviceName]
-
-  if (service && service[methodName] && typeof service[methodName] === 'function') {
-    const serviceMethod = service[methodName] as AlyaConnect.ServiceMethod
-
-    try {
-      const result = await serviceMethod({ params, data })
-
-      if (result) {
-        addToCache(payload.id!, result)
+  if (services.has(serviceName)) {
+    const service = services.get(serviceName)
+    
+    if (service && service[methodName] && typeof service[methodName] === 'function') {
+      const serviceMethod = service[methodName] as AlyaConnect.ServiceMethod
   
+      try {
+        const result = await serviceMethod({ params, data })
+  
+        if (result) {
+          addToCache(payload.id!, result)
+    
+          addToResponse({
+            [payload.id!]: {
+              status: STATUS.SUCCESS,
+              result: result
+            }
+          })
+        }
+      } catch (err: any) {
         addToResponse({
           [payload.id!]: {
-            status: STATUS.SUCCESS,
-            result: result
+            status: STATUS.ERROR,
+            error: {
+              name: err.name,
+              message: err.message,
+            }
           }
         })
       }
-    } catch (err: any) {
-      addToResponse({
-        [payload.id!]: {
-          status: STATUS.ERROR,
-          error: {
-            name: err.name,
-            message: err.message,
-          }
-        }
-      })
     }
-  } 
+  }
 }
 
 function hasValidCacheEntryValue(payloadId: string) {
@@ -136,7 +138,7 @@ function addService(serviceName: string, service: AlyaConnect.Service) {
   log('addService called!')
   log('addService > serviceName:', serviceName)
 
-  services[serviceName] = service
+  services.set(serviceName, service)
 }
 
 function addMutator(mutator: AlyaConnect.Mutator) {
@@ -173,7 +175,7 @@ async function handlePayloads(payloads = [] as AlyaConnect.Payload[]) {
 function setup(config: AlyaConnect.Config) {
   log('setup called!')
 
-  services = {}
+  services.clear()
   mutators = []
 
   for (let service of config.services) {
