@@ -156,9 +156,9 @@ async function handlePayloads(payloads = [] as AlyaConnect.Payload[]) {
   clearResponse()
 
   for (let payload of payloads) {
-    log('handler > payload:', payload)
-    log('handler > payload id:', payload.id)
-    log('handler > payload dependsOn:', payload.dependsOn)
+    log('handlePayloads > payload:', payload)
+    log('handlePayloads > payload id:', payload.id)
+    log('handlePayloads > payload dependsOn:', payload.dependsOn)
 
     if (!payload.dependsOn) {
       await handlePayload(payload)
