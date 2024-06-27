@@ -17,10 +17,6 @@ export type Service = {
   [method: string]: ServiceMethod | string
 }
 
-export type Services = {
-  [serviceName: string]: Service
-}
-
 export type Mutator = (data: Record<string, any>, key: string) => void
 
 export type Status = typeof STATUS[keyof typeof STATUS]
