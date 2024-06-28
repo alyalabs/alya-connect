@@ -117,7 +117,7 @@ async function handlePayload(payload: AlyaConnect.Payload, hasRelationship = fal
     payload.id = nanoid()
   }
 
-  const data = { ...payload.data } || {}
+  const data = { ...payload.data }
 
   for (let key of Object.keys(data)) {
     for (let mutator of mutators) {
