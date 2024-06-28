@@ -1,0 +1,44 @@
+{
+  "name": "alya-connect-adapter-express",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "nodejs",
+    "middleware",
+    "rpc",
+    "expressjs"
+  ],
+  "license": "MIT",
+  "author": "Carlos Eduardo Barbosa de Almeida",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clear": "rimraf ./dist/*",
+
+    "build": "npm run clear && npm run build-esm && npm run build-cjs",
+    
+    "prebuild-esm": "rimraf ./dist/esm/*",
+    "build-esm": "npx vite build --config ./vite.config.esm.js",
+    "postbuild-esm": "echo '{ \"type\": \"module\" }' > ./dist/esm/package.json",
+
+    "prebuild-cjs": "rimraf ./dist/cjs/*",
+    "build-cjs": "npx vite build --config ./vite.config.cjs.js",
+    "postbuild-cjs": "echo '{ \"type\": \"commonjs\" }' > ./dist/cjs/package.json"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21"
+  },
+  "peerDependencies": {
+    "alya-connect": "file:../.."
+  },
+  "main": "./dist/esm/index.cjs",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
+    }
+  },
+  "types": "./dist/esm/index.d.ts"
+}

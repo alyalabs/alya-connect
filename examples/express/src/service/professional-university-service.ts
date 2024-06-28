@@ -23,7 +23,7 @@ const ProfessionalUniversityService: AlyaConnect.Service = {
 
       store.professionalUniversities.push(professionalUniversity)
 
-      await readFile('./test.txt', 'utf-8')
+      //await readFile('./test.txt', 'utf-8')
 
       return professionalUniversity
     }

@@ -1,5 +1,5 @@
 {
-  "name": "alya-connect-example-esm",
+  "name": "alya-connect-example-express",
   "version": "1.0.0",
   "description": "",
   "license": "MIT",
@@ -14,11 +14,14 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "alya-connect": "file:../..",
+    "alya-connect-adapter-express": "file:../../adapters/express",
+    "express": "^4.19.2"
+  },
   "type": "module",
   "imports": {
     "#*": "./src/*"
-  },
-  "dependencies": {
-    "alya-connect": "file:../.."
   }
 }

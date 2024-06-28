@@ -25,3 +25,10 @@ export type Config = {
   services: Service[]
   mutators?: Mutator[]
 }
+
+export type Core = {
+  setup: (config: Config) => void
+  addService: (serviceName: string, service: Service) => void
+  addMutator: (mutator: Mutator) => void
+  handlePayloads: (payloads: Payload[]) => Promise<Record<string, any>>
+}

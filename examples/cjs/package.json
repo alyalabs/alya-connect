@@ -2,17 +2,17 @@
   "name": "alya-connect-example-cjs",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/main.js",
-  "type": "commonjs",
-  "imports": {
-    "#*": "./src/*"
-  },
+  "license": "MIT",
+  "author": "Carlos Eduardo Barbosa de Almeida",
   "scripts": {
     "start": "node src/main.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "alya-connect": "file:../.."
+  },
+  "type": "commonjs",
+  "main": "./src/main.js",
+  "imports": {
+    "#*": "./src/*"
   }
 }

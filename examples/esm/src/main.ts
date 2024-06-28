@@ -1,5 +1,4 @@
-import * as alyaConnect from 'alya-connect'
-import type { AlyaConnect } from 'alya-connect'
+import alyaConnect, { type AlyaConnect } from 'alya-connect'
 
 import ProfessionalService from '#service/professional-service.js'
 import ProfessionalUniversityService from '#service/professional-university-service.js'
@@ -16,7 +15,7 @@ async function main() {
     services: [
       ProfessionalService,
       ProfessionalUniversityService
-    ]
+    ],
   })
 
   const carlos: ProfessionalDTO = {

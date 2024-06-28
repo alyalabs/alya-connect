@@ -191,9 +191,11 @@ function setup(config: AlyaConnect.Config) {
   }
 }
 
-export {
+const defaultExport: AlyaConnect.Core = {
   setup,
   addService,
   addMutator,
   handlePayloads
 }
+
+export default defaultExport
