@@ -52,13 +52,13 @@ async function main() {
   }
 
   try {
-    let firstCallResponse = await alyaConnect.handlePayloads([carlosPayload, carlosUniversityPayload])
+    let firstCallResponse: AlyaConnect.Response = await alyaConnect.handlePayloads([carlosPayload, carlosUniversityPayload])
 
     if (firstCallResponse) {
       console.log('firstCallResponse', firstCallResponse)
 
       const store = getStore()
-      console.log(store)
+      console.log('store:', store)
     }
 
     let secondCallResponse = await alyaConnect.handlePayloads([carlosPayload, carlosUniversityPayload])
@@ -67,7 +67,7 @@ async function main() {
       console.log('secondCallResponse', secondCallResponse)
 
       const store = getStore()
-      console.log(store)
+      console.log('store:', store)
     }
 
     let thirdCallResponse = await alyaConnect.handlePayloads([carlosPayload])
@@ -76,7 +76,7 @@ async function main() {
       console.log('thirdCallResponse', thirdCallResponse)
 
       const store = getStore()
-      console.log(store)
+      console.log('store:', store)
     }
     
   } catch (err) {

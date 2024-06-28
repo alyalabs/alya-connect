@@ -15,7 +15,7 @@ let mutators: AlyaConnect.Mutator[] = []
 
 const cache = new Map<string, any>()
 
-let response: Record<string, any> = []
+let response: AlyaConnect.Response = {}
 
 function log(...args: any[]) {
   if (DEV_MODE) console.log('alya-connect >', ...args)
@@ -29,7 +29,7 @@ function clearCache() {
   cache.clear()
 }
 
-function addToResponse(obj: Record<string, any>) {
+function addToResponse(obj: AlyaConnect.Response) {
   response = { ...response, ...obj }
 }
 
@@ -62,7 +62,7 @@ async function callMethod(payload: AlyaConnect.Payload, data: Record<string, any
             [payload.id!]: {
               status: STATUS.SUCCESS,
               result: result
-            }
+            } as AlyaConnect.SuccessResponse
           })
         }
       } catch (err: any) {
@@ -73,7 +73,7 @@ async function callMethod(payload: AlyaConnect.Payload, data: Record<string, any
               name: err.name,
               message: err.message,
             }
-          }
+          } as AlyaConnect.ErrorResponse
         })
       }
     }
