@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express'
 
-import alyaConnect, { type AlyaConnect } from 'alya-connect'
+import alyaConnect from 'alya-connect'
 import { createExpressAdapter } from 'alya-connect-adapter-express'
 
 import ProfessionalService from '#service/professional-service.js'

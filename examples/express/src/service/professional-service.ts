@@ -1,6 +1,5 @@
 import type { AlyaConnect } from 'alya-connect'
 
-import { ProfessionalDTO } from '#dto/professional-dto.js'
 import { Professional } from '#model/professional.js'
 
 import { getStore } from '#store.js'

@@ -2,7 +2,6 @@ import { readFile } from 'node:fs/promises'
 
 import type { AlyaConnect } from 'alya-connect'
 
-import { ProfessionalUniversityDTO } from '#dto/professional-university-dto.js'
 import { ProfessionalUniversity } from '#model/professional-university.js'
 
 import { getStore } from '#store.js'
