@@ -19,13 +19,15 @@ export default defineConfig(({ mode }) => {
     },
 
     build: {
+      outDir: 'dist/cjs',
+
       minify: true,
 
       lib: {
         entry: fileURLToPath(new URL('src/index.ts', import.meta.url)),
         name: 'index',
         fileName: 'index',
-        formats: ['es', 'cjs'],
+        formats: ['cjs'],
       },
     },
   }

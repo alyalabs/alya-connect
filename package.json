@@ -1,7 +1,7 @@
 {
   "name": "alya-connect",
-  "version": "0.0.2",
-  "description": "",
+  "version": "1.0.0",
+  "description": "A RPC-like library for Express, Koa and Fastify",
   "keywords": [
     "nodejs",
     "middleware",
@@ -10,35 +10,32 @@
     "fastify",
     "koa"
   ],
+  "homepage": "https://github.com/alyalabs/alya-connect#readme",
+  "bugs": {
+    "url": "https://github.com/alyalabs/alya-connect/issues"
+  },
+  "license": "MIT",
+  "author": "Carlos Eduardo Barbosa de Almeida",
   "files": [
     "dist"
   ],
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    },
-    "./mutators/*": "./src/mutators/*.js"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alyalabs/alya-connect.git"
   },
   "scripts": {
     "clear": "rimraf ./dist/*",
-    "prebuild": "rimraf ./dist/*",
-    "build": "tsc -p ./tsconfig.esm.json && tsc -p ./tsconfig.cjs.json",
-    "postbuild": "echo '{ \"type\": \"commonjs\" }' > ./dist/cjs/package.json && echo '{ \"type\": \"module\" }' > ./dist/esm/package.json",
+
+    "build": "npm run clear && npm run build-esm && npm run build-cjs",
+    
     "prebuild-esm": "rimraf ./dist/esm/*",
-    "build-esm": "tsc -p ./tsconfig.esm.json",
+    "build-esm": "npx vite build --config ./vite.config.esm.js",
     "postbuild-esm": "echo '{ \"type\": \"module\" }' > ./dist/esm/package.json",
+
     "prebuild-cjs": "rimraf ./dist/cjs/*",
-    "build-cjs": "tsc -p ./tsconfig.cjs.json",
-    "postbuild-cjs": "echo '{ \"type\": \"commonjs\" }' > ./dist/cjs/package.json",
-    "build-dts": "tsc --declaration --emitDeclarationOnly"
+    "build-cjs": "npx vite build --config ./vite.config.cjs.js",
+    "postbuild-cjs": "echo '{ \"type\": \"commonjs\" }' > ./dist/cjs/package.json"
   },
-  "author": "Carlos Eduardo Barbosa de Almeida",
-  "license": "",
   "dependencies": {
     "nanoid": "^3.3.4"
   },
@@ -50,5 +47,15 @@
     "typescript": "^5.4.5",
     "vite": "^5.3.1",
     "vite-plugin-dts": "^3.9.1"
-  }
+  },
+  "main": "./dist/esm/index.cjs",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./mutators/*": "./src/mutators/*.js"
+  },
+  "types": "./dist/esm/index.d.ts"
 }
