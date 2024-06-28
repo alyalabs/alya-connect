@@ -1,9 +1,9 @@
 
-import type { Request, Response } from 'express'
+import type { Request, Response, NextFunction } from 'express'
 import type { AlyaConnect } from '../../../dist/esm/index.js'
 
 export function createExpressAdapter(alyaConnect: AlyaConnect.Core) {
-  return async function (req: Request, res: Response) {
+  return async function (req: Request, res: Response, next: NextFunction) {
     const body = req.body
       
     if (body) {
@@ -23,15 +23,18 @@ export function createExpressAdapter(alyaConnect: AlyaConnect.Core) {
     
           if (response) {
             res.json(response)
+            next()
             return
           }
         } catch (err) {
           res.sendStatus(500)
+          next()
           return
         }
       }
     }
   
     res.sendStatus(400)
+    next()
   }
 }
