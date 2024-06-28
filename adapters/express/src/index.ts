@@ -1,6 +1,6 @@
 
 import type { Request, Response, NextFunction } from 'express'
-import type { AlyaConnect } from '../../../dist/esm/index.js'
+import type { AlyaConnect } from 'alya-connect'
 
 export function createExpressAdapter(alyaConnect: AlyaConnect.Core) {
   return async function (req: Request, res: Response, next: NextFunction) {
