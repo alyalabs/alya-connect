@@ -44,8 +44,8 @@ async function main() {
     dependsOn: [
       {
         id: carlosPayloadId,
-        primaryKey: 'id',
-        foreignKey: 'professionalId'
+        foreignKey: 'professionalId',
+        references: 'id',
       }
     ]
   }
@@ -54,7 +54,7 @@ async function main() {
     let firstCallResponse = await alyaConnect.handlePayloads([carlosPayload, carlosUniversityPayload])
 
     if (firstCallResponse) {
-      console.log(firstCallResponse)
+      console.log('firstCallResponse', firstCallResponse)
 
       const store = getStore()
       console.log(store)
@@ -63,7 +63,7 @@ async function main() {
     let secondCallResponse = await alyaConnect.handlePayloads([carlosPayload, carlosUniversityPayload])
 
     if (secondCallResponse) {
-      console.log(secondCallResponse)
+      console.log('secondCallResponse', secondCallResponse)
 
       const store = getStore()
       console.log(store)
@@ -72,7 +72,7 @@ async function main() {
     let thirdCallResponse = await alyaConnect.handlePayloads([carlosPayload])
 
     if (thirdCallResponse) {
-      console.log(thirdCallResponse[0])
+      console.log('thirdCallResponse', thirdCallResponse)
 
       const store = getStore()
       console.log(store)

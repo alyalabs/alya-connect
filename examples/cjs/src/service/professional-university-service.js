@@ -7,6 +7,8 @@ const { getRandomId } = require('#util.js')
 const store = getStore()
 
 const ProfessionalUniversityService = {
+  name: 'ProfessionalUniversityService',
+  
   async create({ data }) {
     if (data) {
       const professionalUniversity = {
