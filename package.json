@@ -1,7 +1,7 @@
 {
   "name": "alya-connect",
   "version": "1.0.0",
-  "description": "A RPC-like library for Express, Koa and Fastify",
+  "description": "A RPC library for Express, Koa and Fastify",
   "keywords": [
     "nodejs",
     "middleware",
