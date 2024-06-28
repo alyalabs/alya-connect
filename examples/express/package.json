@@ -11,11 +11,11 @@
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.12.12",
+    "@types/express": "^4.17.21",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@types/express": "^4.17.21",
     "alya-connect": "file:../..",
     "alya-connect-adapter-express": "file:../../adapters/express",
     "express": "^4.19.2"
